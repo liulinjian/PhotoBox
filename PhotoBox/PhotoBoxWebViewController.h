@@ -1,5 +1,5 @@
 //
-//  PhotoBoxDetailViewController.h
+//  PhotoBoxWebViewController.h
 //  PhotoBox
 //
 //  Created by Kristen Novak on 12/30/12.
@@ -10,9 +10,9 @@
 
 @class PhotoObject;
 
-@interface PhotoBoxDetailViewController : UIViewController
+@interface PhotoBoxWebViewController : UIViewController
 
 @property (strong, nonatomic) PhotoObject *photo;
-@property (weak, nonatomic) IBOutlet UIImageView *photoView;
+@property (weak, nonatomic) IBOutlet WebFrame *photoWebView;
 
 @end

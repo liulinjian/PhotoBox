@@ -1,21 +1,19 @@
 //
-//  PhotoBoxDetailViewController.m
+//  PhotoBoxWebViewController.m
 //  PhotoBox
 //
 //  Created by Kristen Novak on 12/30/12.
 //  Copyright (c) 2012 Kristen Novak. All rights reserved.
 //
 
-#import "PhotoBoxDetailViewController.h"
+#import "PhotoBoxWebViewController.h"
 #import "PhotoObject.h"
 
-@interface PhotoBoxDetailViewController ()
+@interface PhotoBoxWebViewController ()
 - (void)configureView;
 @end
 
-@implementation PhotoBoxDetailViewController
-
-#pragma mark - Managing the detail item
+@implementation PhotoBoxWebViewController
 
 - (void)setPhotoObject:(id)newPhoto
 {
@@ -33,16 +31,15 @@
     PhotoObject *thePhoto = self.photo;
     
     if (thePhoto) {
-        // TODO: Config Photo Loading
-        // self.photoView.image = thePhoto.thumb;
+        // TODO: Config Web View
+        // self.webview
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning

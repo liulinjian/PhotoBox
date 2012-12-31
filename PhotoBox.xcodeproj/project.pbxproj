@@ -17,8 +17,16 @@
 		BACCE91D169149A000A257B9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCE91C169149A000A257B9 /* Default@2x.png */; };
 		BACCE91F169149A000A257B9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCE91E169149A000A257B9 /* Default-568h@2x.png */; };
 		BACCE922169149A000A257B9 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BACCE920169149A000A257B9 /* MainStoryboard.storyboard */; };
-		BACCE925169149A000A257B9 /* PhotoBoxMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE924169149A000A257B9 /* PhotoBoxMasterViewController.m */; };
+		BACCE925169149A000A257B9 /* PhotoBoxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE924169149A000A257B9 /* PhotoBoxListViewController.m */; };
 		BACCE928169149A000A257B9 /* PhotoBoxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE927169149A000A257B9 /* PhotoBoxDetailViewController.m */; };
+		BACCE930169149F300A257B9 /* PhotoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE92F169149F300A257B9 /* PhotoObject.m */; };
+		BACCE93316914BD000A257B9 /* PhotoDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE93216914BD000A257B9 /* PhotoDataController.m */; };
+		BACCE939169151AE00A257B9 /* PhotoBoxMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE938169151AE00A257B9 /* PhotoBoxMasterViewController.m */; };
+		BACCE93C169151E100A257B9 /* PhotoBoxWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */; };
+		BACCE93F1691599200A257B9 /* PhotoBoxCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */; };
+		BACCE94D1691708F00A257B9 /* 2610_t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BACCE94C1691708F00A257B9 /* 2610_t.jpg */; };
+		BACCE94F1691716300A257B9 /* webviewButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BACCE94E1691716300A257B9 /* webviewButton.jpg */; };
+		BAE481F016917C2000A44FBC /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE481EF16917C2000A44FBC /* ParseOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,10 +44,24 @@
 		BACCE91C169149A000A257B9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BACCE91E169149A000A257B9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BACCE921169149A000A257B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		BACCE923169149A000A257B9 /* PhotoBoxMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoBoxMasterViewController.h; sourceTree = "<group>"; };
-		BACCE924169149A000A257B9 /* PhotoBoxMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxMasterViewController.m; sourceTree = "<group>"; };
+		BACCE923169149A000A257B9 /* PhotoBoxListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoBoxListViewController.h; sourceTree = "<group>"; };
+		BACCE924169149A000A257B9 /* PhotoBoxListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxListViewController.m; sourceTree = "<group>"; };
 		BACCE926169149A000A257B9 /* PhotoBoxDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoBoxDetailViewController.h; sourceTree = "<group>"; };
 		BACCE927169149A000A257B9 /* PhotoBoxDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxDetailViewController.m; sourceTree = "<group>"; };
+		BACCE92E169149F300A257B9 /* PhotoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoObject.h; sourceTree = "<group>"; };
+		BACCE92F169149F300A257B9 /* PhotoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoObject.m; sourceTree = "<group>"; };
+		BACCE93116914BD000A257B9 /* PhotoDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDataController.h; sourceTree = "<group>"; };
+		BACCE93216914BD000A257B9 /* PhotoDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDataController.m; sourceTree = "<group>"; };
+		BACCE937169151AE00A257B9 /* PhotoBoxMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBoxMasterViewController.h; sourceTree = "<group>"; };
+		BACCE938169151AE00A257B9 /* PhotoBoxMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxMasterViewController.m; sourceTree = "<group>"; };
+		BACCE93A169151E000A257B9 /* PhotoBoxWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBoxWebViewController.h; sourceTree = "<group>"; };
+		BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxWebViewController.m; sourceTree = "<group>"; };
+		BACCE93D1691599100A257B9 /* PhotoBoxCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBoxCustomCell.h; sourceTree = "<group>"; };
+		BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxCustomCell.m; sourceTree = "<group>"; };
+		BACCE94C1691708F00A257B9 /* 2610_t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2610_t.jpg; sourceTree = "<group>"; };
+		BACCE94E1691716300A257B9 /* webviewButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = webviewButton.jpg; sourceTree = "<group>"; };
+		BAE481EE16917C2000A44FBC /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
+		BAE481EF16917C2000A44FBC /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,13 +108,10 @@
 		BACCE90E1691499F00A257B9 /* PhotoBox */ = {
 			isa = PBXGroup;
 			children = (
+				BACCE93616914DF900A257B9 /* ViewController */,
+				BACCE93516914DEA00A257B9 /* Model */,
 				BACCE9171691499F00A257B9 /* PhotoBoxAppDelegate.h */,
 				BACCE9181691499F00A257B9 /* PhotoBoxAppDelegate.m */,
-				BACCE920169149A000A257B9 /* MainStoryboard.storyboard */,
-				BACCE923169149A000A257B9 /* PhotoBoxMasterViewController.h */,
-				BACCE924169149A000A257B9 /* PhotoBoxMasterViewController.m */,
-				BACCE926169149A000A257B9 /* PhotoBoxDetailViewController.h */,
-				BACCE927169149A000A257B9 /* PhotoBoxDetailViewController.m */,
 				BACCE90F1691499F00A257B9 /* Supporting Files */,
 			);
 			path = PhotoBox;
@@ -101,6 +120,9 @@
 		BACCE90F1691499F00A257B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BACCE94E1691716300A257B9 /* webviewButton.jpg */,
+				BACCE94C1691708F00A257B9 /* 2610_t.jpg */,
+				BACCE920169149A000A257B9 /* MainStoryboard.storyboard */,
 				BACCE9101691499F00A257B9 /* PhotoBox-Info.plist */,
 				BACCE9111691499F00A257B9 /* InfoPlist.strings */,
 				BACCE9141691499F00A257B9 /* main.m */,
@@ -110,6 +132,36 @@
 				BACCE91E169149A000A257B9 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BACCE93516914DEA00A257B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BACCE93116914BD000A257B9 /* PhotoDataController.h */,
+				BACCE93216914BD000A257B9 /* PhotoDataController.m */,
+				BACCE92E169149F300A257B9 /* PhotoObject.h */,
+				BACCE92F169149F300A257B9 /* PhotoObject.m */,
+				BAE481EE16917C2000A44FBC /* ParseOperation.h */,
+				BAE481EF16917C2000A44FBC /* ParseOperation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		BACCE93616914DF900A257B9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BACCE937169151AE00A257B9 /* PhotoBoxMasterViewController.h */,
+				BACCE938169151AE00A257B9 /* PhotoBoxMasterViewController.m */,
+				BACCE923169149A000A257B9 /* PhotoBoxListViewController.h */,
+				BACCE924169149A000A257B9 /* PhotoBoxListViewController.m */,
+				BACCE926169149A000A257B9 /* PhotoBoxDetailViewController.h */,
+				BACCE927169149A000A257B9 /* PhotoBoxDetailViewController.m */,
+				BACCE93A169151E000A257B9 /* PhotoBoxWebViewController.h */,
+				BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */,
+				BACCE93D1691599100A257B9 /* PhotoBoxCustomCell.h */,
+				BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +221,8 @@
 				BACCE91D169149A000A257B9 /* Default@2x.png in Resources */,
 				BACCE91F169149A000A257B9 /* Default-568h@2x.png in Resources */,
 				BACCE922169149A000A257B9 /* MainStoryboard.storyboard in Resources */,
+				BACCE94D1691708F00A257B9 /* 2610_t.jpg in Resources */,
+				BACCE94F1691716300A257B9 /* webviewButton.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,8 +235,14 @@
 			files = (
 				BACCE9151691499F00A257B9 /* main.m in Sources */,
 				BACCE9191691499F00A257B9 /* PhotoBoxAppDelegate.m in Sources */,
-				BACCE925169149A000A257B9 /* PhotoBoxMasterViewController.m in Sources */,
+				BACCE925169149A000A257B9 /* PhotoBoxListViewController.m in Sources */,
 				BACCE928169149A000A257B9 /* PhotoBoxDetailViewController.m in Sources */,
+				BACCE930169149F300A257B9 /* PhotoObject.m in Sources */,
+				BACCE93316914BD000A257B9 /* PhotoDataController.m in Sources */,
+				BACCE939169151AE00A257B9 /* PhotoBoxMasterViewController.m in Sources */,
+				BACCE93C169151E100A257B9 /* PhotoBoxWebViewController.m in Sources */,
+				BACCE93F1691599200A257B9 /* PhotoBoxCustomCell.m in Sources */,
+				BAE481F016917C2000A44FBC /* ParseOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +358,7 @@
 				BACCE92D169149A000A257B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

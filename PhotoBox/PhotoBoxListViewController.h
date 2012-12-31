@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoBoxCustomCell.h"
 
 @class PhotoDataController;
 
-@interface PhotoBoxMasterViewController : UIViewController
+@interface PhotoBoxListViewController : UITableViewController
 
 @property (strong, nonatomic) PhotoDataController *dataController;
 
-- (IBAction)handleGetPhotos:(id)sender;
-- (void)complete;
+- (void)setTableSource:(NSArray *)photos;
 
 @end
