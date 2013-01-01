@@ -13,6 +13,6 @@
 @interface PhotoBoxWebViewController : UIViewController
 
 @property (strong, nonatomic) PhotoObject *photo;
-@property (weak, nonatomic) IBOutlet WebFrame *photoWebView;
+@property (strong, nonatomic) IBOutlet UIWebView *webview;
 
 @end

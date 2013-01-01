@@ -11,24 +11,13 @@
 
 @implementation PhotoObject
 
--(id)initWithID:(NSString *)photoID userID:(NSString *)userID title:(NSString *)title user:(NSString *)user {
+-(id)initWithID:(NSString *)newphotoID userID:(NSString *)newuserID title:(NSString *)newtitle user:(NSString *)newuser {
     self = [super init];
     if (self) {
-        _photoID = photoID;
-        _userID = userID;
-        _title = title;
-        _user = user;
-        return self;
-    }
-    return nil;
-}
-
--(id)addImages:(NSString *)thumb small:(NSString *)small medium:(NSString *)medium original:(NSString *)original {
-    if (self) {
-        _thumb = thumb;
-        _small = small;
-        _medium = medium;
-        _original = original;
+        self.photoID = newphotoID;
+        self.userID = newuserID;
+        self.title = newtitle;
+        self.user = newuser;
         return self;
     }
     return nil;

@@ -11,12 +11,14 @@
 
 @interface PhotoBoxWebViewController ()
 - (void)configureView;
+- (NSString *) photoURL;
 @end
 
 @implementation PhotoBoxWebViewController
 
-- (void)setPhotoObject:(id)newPhoto
+- (void)setPhoto:(PhotoObject *)newPhoto
 {
+    NSLog(@"WebVC setPhoto");
     if (_photo != newPhoto) {
         _photo = newPhoto;
         
@@ -27,12 +29,16 @@
 
 - (void)configureView
 {
-    // Update the user interface for the detail item.
-    PhotoObject *thePhoto = self.photo;
-    
-    if (thePhoto) {
-        // TODO: Config Web View
-        // self.webview
+    NSLog(@"configureView");
+    if (self.webview == nil) {
+        self.webview = [[UIWebView alloc]init];
+        // webview.delegate = self;
+    }
+    if (self.photo) {
+        NSURL *url = [NSURL URLWithString:self.photoURL];
+        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+        [self.webview loadRequest:req];
+
     }
 }
 
@@ -46,6 +52,19 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *) photoURL {
+    
+    NSError *error = NULL;
+    NSString *tempPhotoURL = @"http://work.dc.akqa.com/recruiting/photos/<userID>/<photoID>.jpg";
+    
+    NSRegularExpression *regex1 = [NSRegularExpression regularExpressionWithPattern:@"\\<userID>" options:NSRegularExpressionCaseInsensitive error:&error];
+    tempPhotoURL = [regex1 stringByReplacingMatchesInString:tempPhotoURL options:0 range:NSMakeRange(0, [tempPhotoURL length]) withTemplate:self.photo.userID];
+    
+    NSRegularExpression *regex2 = [NSRegularExpression regularExpressionWithPattern:@"\\<photoID>" options:NSRegularExpressionCaseInsensitive error:&error];
+    tempPhotoURL = [regex2 stringByReplacingMatchesInString:tempPhotoURL options:0 range:NSMakeRange(0, [tempPhotoURL length]) withTemplate:self.photo.photoID];
+    return tempPhotoURL;
 }
 
 @end

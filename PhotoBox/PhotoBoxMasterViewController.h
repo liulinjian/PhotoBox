@@ -9,12 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @class PhotoDataController;
+@class PhotoObject;
 
-@interface PhotoBoxMasterViewController : UIViewController
+@interface PhotoBoxMasterViewController : UIViewController {
+    NSURLConnection *photoFeedConnection;
+    NSURLConnection *photoSizesConnection;
+    NSOperationQueue *parseQueue;
+    NSMutableData *photosData;
+    NSMutableData *sizesData;
+    PhotoObject *currPhoto;
+}
 
 @property (strong, nonatomic) PhotoDataController *dataController;
 
 - (IBAction)handleGetPhotos:(id)sender;
-- (void)complete;
 
 @end

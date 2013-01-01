@@ -13,10 +13,11 @@
 #import "PhotoDataController.h"
 #import "PhotoObject.h"
 
-
 @interface PhotoBoxListViewController () {
-    // NSMutableArray *_objects;
 }
+
+- (IBAction)handleFullScreenButton:(UIButton *)sender;
+- (IBAction)handleWebViewButton:(UIButton *)sender;
 
 -(void)setTableSource:(NSArray *)photos;
 
@@ -25,17 +26,22 @@
 
 @implementation PhotoBoxListViewController
 
-- (void)awakeFromNib
-{
-    NSLog(@"ListVC awakeFromNib");
-    [super awakeFromNib];
-    if (self.dataController == nil) {
-        self.dataController = [[PhotoDataController alloc] init];
-    }
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    
+    NSLog(@"listVC viewDidLoad, %@", self.dataController);
     
     [self.tableView reloadData];
 }
 
+
+- (IBAction)handleFullScreenButton:(UIButton *)sender {
+    self.currRow = (NSInteger *)sender.tag;
+}
+
+- (IBAction)handleWebViewButton:(UIButton *)sender {
+    self.currRow = (NSInteger *)sender.tag;
+}
 
 - (void)setTableSource:(NSArray *)photos {
     NSLog(@"ListVC setTableSource");
@@ -78,50 +84,38 @@
         
     }
     
-    
-    [[cell titleLabel] setText:@"Title"];
-    [[cell userLabel] setText:@"User"];
+    NSLog(@"cell creation: %d",indexPath.row);
+    [[cell titleLabel] setText:[self.dataController getPhotoAtIndex:indexPath.row].title];
+    [[cell userLabel] setText:[self.dataController getPhotoAtIndex:indexPath.row].user];
     [[cell imageView] setImage:[UIImage imageNamed:@"2610_t.jpg"]];
+    [[cell fullscreenButton] setTag:indexPath.row];
+    [[cell webviewButton] setTag:indexPath.row];
     
-    // [[cell setText:[NSString stringWithFormat:@"A am cell number %d",indexPath.row]]];
-    // [[cell titleLabel] setText:sightingAtIndex.name];
-    // [[cell detailTextLabel] setText:[formatter stringFromDate:(NSDate *)sightingAtIndex.date]];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return NO;
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"ShowFullScreenImage"]) {
-        PhotoBoxDetailViewController *detailViewController = [segue destinationViewController];
-        detailViewController.photo = [self.dataController getPhotoAtIndex:[self.tableView indexPathForSelectedRow].row];
+    NSUInteger rowForAccess= (NSUInteger)self.currRow;
+    PhotoObject *tempPhoto = [self.dataController getPhotoAtIndex:(NSUInteger)rowForAccess];
+    // NSLog(@"ListVC prepareForSeque, %@",tempPhoto.photoID);
+    
+    if ([[segue identifier] isEqualToString:@"openFullScreen"]) {
+        PhotoBoxDetailViewController *detailVC = [segue destinationViewController];
+        detailVC.photo = tempPhoto;
         
-    } else if ([[segue identifier] isEqualToString:@"ShowWebView"]) {
-        PhotoBoxWebViewController *detailViewController = [segue destinationViewController];
-        detailViewController.photo = [self.dataController getPhotoAtIndex:[self.tableView indexPathForSelectedRow].row];
+    } else if ([[segue identifier] isEqualToString:@"openWebView"]) {
+        PhotoBoxWebViewController *webviewVC = [segue destinationViewController];
+        webviewVC.photo = tempPhoto;
         
     }
 }
+
 
 @end

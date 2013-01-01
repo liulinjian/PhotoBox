@@ -9,24 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class PhotoObject;
-@class PhotoBoxMasterViewController;
 
 @interface PhotoDataController : NSObject
-{
-    @private
-    PhotoBoxMasterViewController *masterView;
-    NSURLConnection *photoFeedConnection;
-    NSMutableData *photoData;
-    NSOperationQueue *parseQueue;
-   
-}
 
 @property (nonatomic, copy) NSMutableArray *masterPhotoList;
 
 -(NSUInteger)numberPhotos;
 -(PhotoObject *)getPhotoAtIndex:(NSUInteger)theIndex;
--(void)AddPhotoToList:(PhotoObject *)newPhotoObj;
 -(void)initializeDefaultList;
--(void)loadDataList;
+-(void)addPhotosToList:(NSArray *)photos;
 
 @end

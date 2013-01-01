@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class PhotoSizesObject;
+
 @interface PhotoObject : NSObject
 
 @property (nonatomic, copy) NSString *photoID;
@@ -15,13 +17,11 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *user;
 
-@property (nonatomic, copy) NSString *thumb;
-@property (nonatomic, copy) NSString *small;
-@property (nonatomic, copy) NSString *medium;
-@property (nonatomic, copy) NSString *original;
+@property (nonatomic, copy) PhotoSizesObject *sizes;
+
+@property (nonatomic, copy) UIImage *thumbImage;
+@property (nonatomic, copy) UIImage *photoImage;
 
 -(id)initWithID:(NSString *)photoID userID:(NSString *)userID title:(NSString *)title user:(NSString *)user;
-
--(id)addImages:(NSString *)thumb small:(NSString *)small medium:(NSString *)medium original:(NSString *)original;
 
 @end

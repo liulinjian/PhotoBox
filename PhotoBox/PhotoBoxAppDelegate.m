@@ -7,12 +7,17 @@
 //
 
 #import "PhotoBoxAppDelegate.h"
+#import "PhotoDataController.h"
 
 @implementation PhotoBoxAppDelegate
+
+@synthesize dataController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.dataController = [[PhotoDataController alloc] init];
+    
     return YES;
 }
 							
@@ -42,5 +47,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end
