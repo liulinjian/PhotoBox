@@ -24,9 +24,15 @@
 		BACCE939169151AE00A257B9 /* PhotoBoxMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE938169151AE00A257B9 /* PhotoBoxMasterViewController.m */; };
 		BACCE93C169151E100A257B9 /* PhotoBoxWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */; };
 		BACCE93F1691599200A257B9 /* PhotoBoxCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */; };
-		BACCE94D1691708F00A257B9 /* 2610_t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BACCE94C1691708F00A257B9 /* 2610_t.jpg */; };
-		BACCE94F1691716300A257B9 /* webviewButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BACCE94E1691716300A257B9 /* webviewButton.jpg */; };
-		BAE481F016917C2000A44FBC /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE481EF16917C2000A44FBC /* ParseOperation.m */; };
+		BAE481F016917C2000A44FBC /* ParseFeedOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE481EF16917C2000A44FBC /* ParseFeedOperation.m */; };
+		BAE48CAA16924B7B00A44FBC /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE48CA916924B7B00A44FBC /* IconDownloader.m */; };
+		BAE48CAC1692505F00A44FBC /* getPhotosButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE48CAB1692505F00A44FBC /* getPhotosButton.png */; };
+		BAE48CAE1692535300A44FBC /* blackbar.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE48CAD1692535300A44FBC /* blackbar.png */; };
+		BAE48CCE1693B01C00A44FBC /* getPhotosButtonFocus.png in Resources */ = {isa = PBXBuildFile; fileRef = BAE48CCB1693B01C00A44FBC /* getPhotosButtonFocus.png */; };
+		BAE48CD01693B01C00A44FBC /* webviewButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAE48CCD1693B01C00A44FBC /* webviewButton.jpg */; };
+		BAE48CD21693B03E00A44FBC /* placeholder_t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAE48CD11693B03E00A44FBC /* placeholder_t.jpg */; };
+		BAE48CD81693CFC800A44FBC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE48CD71693CFC800A44FBC /* QuartzCore.framework */; };
+		BAE48CDB1693D18A00A44FBC /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE48CDA1693D18900A44FBC /* BackgroundLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,10 +64,18 @@
 		BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxWebViewController.m; sourceTree = "<group>"; };
 		BACCE93D1691599100A257B9 /* PhotoBoxCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBoxCustomCell.h; sourceTree = "<group>"; };
 		BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBoxCustomCell.m; sourceTree = "<group>"; };
-		BACCE94C1691708F00A257B9 /* 2610_t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2610_t.jpg; sourceTree = "<group>"; };
-		BACCE94E1691716300A257B9 /* webviewButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = webviewButton.jpg; sourceTree = "<group>"; };
-		BAE481EE16917C2000A44FBC /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
-		BAE481EF16917C2000A44FBC /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
+		BAE481EF16917C2000A44FBC /* ParseFeedOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseFeedOperation.m; sourceTree = "<group>"; };
+		BAE48CA816924B7B00A44FBC /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
+		BAE48CA916924B7B00A44FBC /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		BAE48CAB1692505F00A44FBC /* getPhotosButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = getPhotosButton.png; sourceTree = "<group>"; };
+		BAE48CAD1692535300A44FBC /* blackbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackbar.png; sourceTree = "<group>"; };
+		BAE48CBF16939BE800A44FBC /* ParseFeedOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseFeedOperation.h; sourceTree = "<group>"; };
+		BAE48CCB1693B01C00A44FBC /* getPhotosButtonFocus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = getPhotosButtonFocus.png; sourceTree = "<group>"; };
+		BAE48CCD1693B01C00A44FBC /* webviewButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = webviewButton.jpg; sourceTree = "<group>"; };
+		BAE48CD11693B03E00A44FBC /* placeholder_t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder_t.jpg; sourceTree = "<group>"; };
+		BAE48CD71693CFC800A44FBC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BAE48CD91693D18900A44FBC /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
+		BAE48CDA1693D18900A44FBC /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAE48CD81693CFC800A44FBC /* QuartzCore.framework in Frameworks */,
 				BACCE9091691499F00A257B9 /* UIKit.framework in Frameworks */,
 				BACCE90B1691499F00A257B9 /* Foundation.framework in Frameworks */,
 				BACCE90D1691499F00A257B9 /* CoreGraphics.framework in Frameworks */,
@@ -98,6 +113,7 @@
 		BACCE9071691499F00A257B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAE48CD71693CFC800A44FBC /* QuartzCore.framework */,
 				BACCE9081691499F00A257B9 /* UIKit.framework */,
 				BACCE90A1691499F00A257B9 /* Foundation.framework */,
 				BACCE90C1691499F00A257B9 /* CoreGraphics.framework */,
@@ -120,8 +136,7 @@
 		BACCE90F1691499F00A257B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BACCE94E1691716300A257B9 /* webviewButton.jpg */,
-				BACCE94C1691708F00A257B9 /* 2610_t.jpg */,
+				BAE48CA51692489C00A44FBC /* images */,
 				BACCE920169149A000A257B9 /* MainStoryboard.storyboard */,
 				BACCE9101691499F00A257B9 /* PhotoBox-Info.plist */,
 				BACCE9111691499F00A257B9 /* InfoPlist.strings */,
@@ -137,12 +152,14 @@
 		BACCE93516914DEA00A257B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BAE48CBF16939BE800A44FBC /* ParseFeedOperation.h */,
+				BAE481EF16917C2000A44FBC /* ParseFeedOperation.m */,
 				BACCE93116914BD000A257B9 /* PhotoDataController.h */,
 				BACCE93216914BD000A257B9 /* PhotoDataController.m */,
 				BACCE92E169149F300A257B9 /* PhotoObject.h */,
 				BACCE92F169149F300A257B9 /* PhotoObject.m */,
-				BAE481EE16917C2000A44FBC /* ParseOperation.h */,
-				BAE481EF16917C2000A44FBC /* ParseOperation.m */,
+				BAE48CA816924B7B00A44FBC /* IconDownloader.h */,
+				BAE48CA916924B7B00A44FBC /* IconDownloader.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -160,8 +177,22 @@
 				BACCE93B169151E100A257B9 /* PhotoBoxWebViewController.m */,
 				BACCE93D1691599100A257B9 /* PhotoBoxCustomCell.h */,
 				BACCE93E1691599200A257B9 /* PhotoBoxCustomCell.m */,
+				BAE48CD91693D18900A44FBC /* BackgroundLayer.h */,
+				BAE48CDA1693D18900A44FBC /* BackgroundLayer.m */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		BAE48CA51692489C00A44FBC /* images */ = {
+			isa = PBXGroup;
+			children = (
+				BAE48CD11693B03E00A44FBC /* placeholder_t.jpg */,
+				BAE48CCB1693B01C00A44FBC /* getPhotosButtonFocus.png */,
+				BAE48CCD1693B01C00A44FBC /* webviewButton.jpg */,
+				BAE48CAD1692535300A44FBC /* blackbar.png */,
+				BAE48CAB1692505F00A44FBC /* getPhotosButton.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,8 +252,11 @@
 				BACCE91D169149A000A257B9 /* Default@2x.png in Resources */,
 				BACCE91F169149A000A257B9 /* Default-568h@2x.png in Resources */,
 				BACCE922169149A000A257B9 /* MainStoryboard.storyboard in Resources */,
-				BACCE94D1691708F00A257B9 /* 2610_t.jpg in Resources */,
-				BACCE94F1691716300A257B9 /* webviewButton.jpg in Resources */,
+				BAE48CAC1692505F00A44FBC /* getPhotosButton.png in Resources */,
+				BAE48CAE1692535300A44FBC /* blackbar.png in Resources */,
+				BAE48CCE1693B01C00A44FBC /* getPhotosButtonFocus.png in Resources */,
+				BAE48CD01693B01C00A44FBC /* webviewButton.jpg in Resources */,
+				BAE48CD21693B03E00A44FBC /* placeholder_t.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +276,9 @@
 				BACCE939169151AE00A257B9 /* PhotoBoxMasterViewController.m in Sources */,
 				BACCE93C169151E100A257B9 /* PhotoBoxWebViewController.m in Sources */,
 				BACCE93F1691599200A257B9 /* PhotoBoxCustomCell.m in Sources */,
-				BAE481F016917C2000A44FBC /* ParseOperation.m in Sources */,
+				BAE481F016917C2000A44FBC /* ParseFeedOperation.m in Sources */,
+				BAE48CAA16924B7B00A44FBC /* IconDownloader.m in Sources */,
+				BAE48CDB1693D18A00A44FBC /* BackgroundLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +326,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				"OTHER_LDFLAGS[sdk=iphoneos6.0]" = "-lxml2";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -310,8 +348,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"OTHER_LDFLAGS[sdk=iphoneos6.0]" = "-lxml2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

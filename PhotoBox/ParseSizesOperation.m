@@ -50,24 +50,8 @@ NSString *kPhotoSizesMsgErrorKey = @"kPhotoSizesMsgErrorKey";
     return self;
 }
 
-/**
-- (void)dealloc
-{
-    [completionHandler release];
-    [errorHandler release];
-    [dataToParse release];
-    [workingEntry release];
-    [workingPropertyString release];
-    [workingArray release];
-    
-    [super dealloc];
-}
-**/
-
 - (void)main
 {
-	// NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	self.workingArray = [NSMutableArray array];
     self.workingPropertyString = [NSMutableString string];
     
@@ -77,38 +61,14 @@ NSString *kPhotoSizesMsgErrorKey = @"kPhotoSizesMsgErrorKey";
 	
 	if (![self isCancelled])
     {
-        // call our completion handler with the result of our parsing
         self.completionHandler(self.workingArray);
     }
-    
-    /**
-     if ([self.workingArray count] > 0) {
-        [self performSelectorOnMainThread:@selector(addPhotosToList:)
-                               withObject:self.workingArray
-                            waitUntilDone:NO];
-    }
-     **/
     
     self.workingArray = nil;
     self.workingPropertyString = nil;
     self.dataToParse = nil;
     
-    // [[parser release];
-	// [pool release];
 }
-
-/**
-- (void)dealloc {
-    [photoData release];
-    
-    [currentPhotoObject release];
-    [currentParsedCharacterData release];
-    [currentParseBatch release];
-    [dateFormatter release];
-    
-    [super dealloc];
-}
-**/
 
 #pragma mark -
 #pragma mark NSXMLParser delegate methods
@@ -122,15 +82,17 @@ NSString *kPhotoSizesMsgErrorKey = @"kPhotoSizesMsgErrorKey";
         self.workingEntry = [[PhotoSizesObject alloc] init];
         storingCharacterData = YES;
     } else if ([elementName isEqualToString:kSizeElementName]) {
+        
         NSString *labelAttribute = [attributeDict valueForKey:kLabelAttributeName];
         NSString *sourceAttribute = [attributeDict valueForKey:kSourceAttributeName];
-        if (labelAttribute == @"thumbnail") {
-          self.workingEntry.thumbnail = sourceAttribute;
-        } else if (labelAttribute == @"small") {
+        
+        if ([[attributeDict valueForKey:kLabelAttributeName] isEqualToString:@"thumbnail"]){
+            self.workingEntry.thumbnail = sourceAttribute;
+        } else if ([[attributeDict valueForKey:kLabelAttributeName] isEqualToString:@"small"]){
             self.workingEntry.small = sourceAttribute;
-        } else if (labelAttribute == @"medium") {
+        } else if ([[attributeDict valueForKey:kLabelAttributeName] isEqualToString:@"medium"]){
             self.workingEntry.medium = sourceAttribute;
-        } else if (labelAttribute == @"original") {
+        } else if ([[attributeDict valueForKey:kLabelAttributeName] isEqualToString:@"original"]){
             self.workingEntry.original = sourceAttribute;
         }
     }
