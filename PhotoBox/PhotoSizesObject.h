@@ -10,7 +10,7 @@
 
 @interface PhotoSizesObject : NSObject
 
-@property (nonatomic, copy) NSString *thumb;
+@property (nonatomic, copy) NSString *thumbnail;
 @property (nonatomic, copy) NSString *small;
 @property (nonatomic, copy) NSString *medium;
 @property (nonatomic, copy) NSString *original;

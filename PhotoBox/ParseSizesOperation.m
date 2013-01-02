@@ -1,5 +1,5 @@
 //
-//  ParseSizesOperation.m
+//  ParseOperation.m
 //  PhotoBox
 //
 //  Created by Kristen Novak on 12/31/12.
@@ -17,11 +17,10 @@ static NSString * const kWidthAttributeName = @"width";
 static NSString * const kHeightAttributeName = @"height";
 static NSString * const kSourceAttributeName = @"source";
 
-NSString *kAddPhotosNotif = @"AddPhotosNotif";
-NSString *kPhotoResultsKey = @"PhotoResultsKey";
-NSString *kPhotosErrorNotif = @"PhotoErrorNotif";
-NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
-
+NSString *kAddPhotoSizesNotif = @"kAddPhotoSizesNotif";
+NSString *kPhotoSizesResultsKey = @"kPhotoSizesResultsKey";
+NSString *kPhotoSizesErrorNotif = @"kPhotoSizesErrorNotif";
+NSString *kPhotoSizesMsgErrorKey = @"kPhotoSizesMsgErrorKey";
 
 @interface ParseSizesOperation () <NSXMLParserDelegate>
 
@@ -46,24 +45,24 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
     {
         self.dataToParse = parseData;
         self.completionHandler = handler;
-        self.elementsToParse = [NSArray arrayWithObjects:kPhotoElementName, kSizesElementName, kSizeElementName, kLabelAttributeName, kWidthAttributeName, kHeightAttributeName, kSourceAttributeName, nil];
+        self.elementsToParse = [NSArray arrayWithObjects:kPhotoElementName, kSizesElementName, kLabelAttributeName, kWidthAttributeName, kHeightAttributeName, kSourceAttributeName, nil];
     }
     return self;
 }
 
 /**
- - (void)dealloc
- {
- [completionHandler release];
- [errorHandler release];
- [dataToParse release];
- [workingEntry release];
- [workingPropertyString release];
- [workingArray release];
- 
- [super dealloc];
- }
- **/
+- (void)dealloc
+{
+    [completionHandler release];
+    [errorHandler release];
+    [dataToParse release];
+    [workingEntry release];
+    [workingPropertyString release];
+    [workingArray release];
+    
+    [super dealloc];
+}
+**/
 
 - (void)main
 {
@@ -84,10 +83,10 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
     
     /**
      if ([self.workingArray count] > 0) {
-     [self performSelectorOnMainThread:@selector(addPhotosToList:)
-     withObject:self.workingArray
-     waitUntilDone:NO];
-     }
+        [self performSelectorOnMainThread:@selector(addPhotosToList:)
+                               withObject:self.workingArray
+                            waitUntilDone:NO];
+    }
      **/
     
     self.workingArray = nil;
@@ -99,49 +98,41 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
 }
 
 /**
- - (void)dealloc {
- [photoData release];
- 
- [currentPhotoObject release];
- [currentParsedCharacterData release];
- [currentParseBatch release];
- [dateFormatter release];
- 
- [super dealloc];
- }
- **/
+- (void)dealloc {
+    [photoData release];
+    
+    [currentPhotoObject release];
+    [currentParsedCharacterData release];
+    [currentParseBatch release];
+    [dateFormatter release];
+    
+    [super dealloc];
+}
+**/
 
 #pragma mark -
 #pragma mark NSXMLParser delegate methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI
- qualifiedName:(NSString *)qName
-    attributes:(NSDictionary *)attributeDict {
-    // Limit # Photos to Parse
-    /**
-     if (parsedPhotosCounter >= kMaximumNumberOfPhotosToParse) {
-     // flag didAbortParsing
-     didAbortParsing = YES;
-     [parser abortParsing];
-     }
-     **/
+                                     namespaceURI:(NSString *)namespaceURI
+                                     qualifiedName:(NSString *)qName
+                                     attributes:(NSDictionary *)attributeDict {
+   
     if ([elementName isEqualToString:kSizesElementName]) {
         self.workingEntry = [[PhotoSizesObject alloc] init];
+        storingCharacterData = YES;
     } else if ([elementName isEqualToString:kSizeElementName]) {
         NSString *labelAttribute = [attributeDict valueForKey:kLabelAttributeName];
         NSString *sourceAttribute = [attributeDict valueForKey:kSourceAttributeName];
         if (labelAttribute == @"thumbnail") {
-            self.workingEntry.thumb = sourceAttribute;
-        }else if (labelAttribute == @"small") {
+          self.workingEntry.thumbnail = sourceAttribute;
+        } else if (labelAttribute == @"small") {
             self.workingEntry.small = sourceAttribute;
-        }else if (labelAttribute == @"medium") {
+        } else if (labelAttribute == @"medium") {
             self.workingEntry.medium = sourceAttribute;
-        }else if (labelAttribute == @"original") {
+        } else if (labelAttribute == @"original") {
             self.workingEntry.original = sourceAttribute;
         }
-        
-        storingCharacterData = YES;
     }
 }
 
@@ -156,7 +147,7 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
         {
             [self.workingArray addObject:self.workingEntry];
             
-            parsedSizesCounter++;
+            parsedPhotosCounter++;
             
             self.workingEntry = nil;
         }
@@ -182,20 +173,20 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
 }
 
 - (void)handlePhotosError:(NSError *)parseError {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPhotosErrorNotif
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPhotoSizesErrorNotif
                                                         object:self
                                                       userInfo:[NSDictionary dictionaryWithObject:parseError
-                                                                                           forKey:kPhotosMsgErrorKey]];
+                                                                                           forKey:kPhotoSizesMsgErrorKey]];
 }
 
 
 - (void)addPhotosToList:(NSArray *)photos {
     assert([NSThread isMainThread]);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kAddPhotosNotif
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAddPhotoSizesNotif
                                                         object:self
                                                       userInfo:[NSDictionary dictionaryWithObject:photos
-                                                                                           forKey:kPhotoResultsKey]];
-}
+                                                                                           forKey:kPhotoSizesResultsKey]];
+}   
 
 @end

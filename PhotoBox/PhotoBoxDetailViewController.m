@@ -112,7 +112,6 @@
     NSRegularExpression *regex2 = [NSRegularExpression regularExpressionWithPattern:@"\\<photoID>" options:NSRegularExpressionCaseInsensitive error:&error];
     tempPhotoURL = [regex2 stringByReplacingMatchesInString:tempPhotoURL options:0 range:NSMakeRange(0, [tempPhotoURL length]) withTemplate:self.photo.photoID];
     
-    NSLog(tempPhotoURL);
     return tempPhotoURL;
 }
 

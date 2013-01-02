@@ -13,6 +13,7 @@
 #import "PhotoObject.h"
 
 #import "ParseFeedOperation.h"
+#import "ParseSizesOperation.h"
 
 // this framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code
 #import <CFNetwork/CFNetwork.h>
@@ -26,14 +27,15 @@
 @property (nonatomic, retain) NSMutableData *photosData;
 @property (nonatomic, retain) NSMutableData *sizesData;
 @property (nonatomic, retain) PhotoObject *currPhoto;
+@property (nonatomic) NSUInteger *currPhotoIndex;
 
 - (IBAction)handleGetPhotos:(id)sender;
-- (void)handleLoadComplete;
-- (void)loadImageSizes:(NSUInteger *)photoIndex;
 
 @end
 
 @implementation PhotoBoxMasterViewController
+
+@synthesize photoFeedConnection,photoSizesConnection, parseQueue, photosData, sizesData, currPhoto, currPhotoIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,10 +71,12 @@
 }
 
 - (IBAction)handleGetPhotos:(id)sender {
+    NSLog(@"handleGetPhotos");
     [self loadPhotoFeed];
 }
 
 -(void)loadPhotoFeed {
+    NSLog(@"loadPhotoFeed");
     
     static NSString *feedURLString = @"http://work.dc.akqa.com/recruiting/services/getPhotos.php";
     NSURLRequest *photoURLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedURLString]];
@@ -87,12 +91,15 @@
 }
 
 -(void)handleFeedLoadComplete:(NSArray *)photos {
+    NSLog(@"handleFeedLoadComplete");
     [self.dataController addPhotosToList:photos];
-    [self loadImageSizes:0];
+    [self handleLoadComplete];
 }
 
+/**
 -(void)loadImageSizes:(NSUInteger *)photoIndex {
-    NSLog(@"MasterVC handleLoadComplete");
+    NSLog(@"loadImageSizes");
+    self.currPhotoIndex = photoIndex;
     self.currPhoto = [self.dataController getPhotoAtIndex:*photoIndex];
     
     // parse getSizes URL
@@ -100,7 +107,7 @@
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\<photoID>" options:NSRegularExpressionCaseInsensitive error:&error];
     getSizesURL = [regex stringByReplacingMatchesInString:getSizesURL options:0 range:NSMakeRange(0, [getSizesURL length]) withTemplate:self.currPhoto.photoID];
-    
+
     // set up request and connection for getSizes request
     NSURLRequest *photoSizesURLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:getSizesURL]];
     self.photoSizesConnection = [[NSURLConnection alloc] initWithRequest:photoSizesURLRequest delegate:self];
@@ -108,9 +115,26 @@
     NSAssert(self.photoSizesConnection != nil, @"Failure to create URL connection.");
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     parseQueue = [NSOperationQueue new];
-    
-//    [self performSegueWithIdentifier:@"viewPhotoList" sender:self];
 }
+
+-(void)handleSizesLoadComplete:(NSArray *)sizesArr {
+    NSLog(@"handleSizesLoadComplete");
+    //self.currPhoto.sizes = [sizesArray objectAtIndex:0];
+    //self.currPhotoIndex ++;
+    //NSUInteger currPhotoNum = *(self.currPhotoIndex);
+    //NSUInteger numPhotos = self.dataController.numberPhotos;
+    //if (currPhotoNum < numPhotos) {
+    //    [self loadImageSizes:&currPhotoNum];
+    //} else {
+        [self handleLoadComplete];
+    //}
+}
+ */
+-(void)handleLoadComplete {
+    NSLog(@"handleLoadComplete");
+    [self performSegueWithIdentifier:@"viewPhotoList" sender:self];
+}
+
 
 #pragma mark -
 #pragma mark NSURLConnection delegate methods
@@ -202,20 +226,18 @@
         // [parser release];
         self.photosData = nil;
         
-    } else if (connection == self.photoSizesConnection) {
+    }
+    /*else if (connection == self.photoSizesConnection) {
         self.photoSizesConnection = nil;
-        ParseFeedOperation *parser = [[ParseFeedOperation alloc] initWithData:photosData
-                                                            completionHandler:^(NSArray *photoList) {
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    [self handleFeedLoadComplete:photoList];
-                                                                    
-                                                                });
-                                                                
-                                                                self.parseQueue = nil;
-                                                            }];
+        ParseSizesOperation *parser2 = [[ParseSizesOperation alloc] initWithData:sizesData completionHandler:^(NSArray *sizesArray) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self handleSizesLoadComplete:sizesArray];
+                });
+            self.parseQueue = nil;
         
-        parser.errorHandler = ^(NSError *parseError) {
+        }];
+        
+        parser2.errorHandler = ^(NSError *parseError) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self handleError:parseError];
@@ -223,16 +245,10 @@
             });
         };
         
-        [parseQueue addOperation:parser];
-        // [parser release];
-        self.photosData = nil;
-    }
-    
-    
-    
-    
-    
-    
+        [parseQueue addOperation:parser2];
+        // [parser2 release];
+        self.sizesData = nil;
+    }*/
 }
 
 @end

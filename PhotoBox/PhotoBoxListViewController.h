@@ -13,14 +13,19 @@
 
 @class PhotoDataController;
 
-@interface PhotoBoxListViewController : UITableViewController
-
+@interface PhotoBoxListViewController : UITableViewController <UIScrollViewDelegate, IconDownloaderDelegate> {
+    NSArray *entries;
+    NSMutableDictionary *imageDownloadsInProgress;
+}
 @property (nonatomic) NSInteger *currRow;
+@property (nonatomic, retain) NSArray *entries;
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (strong, nonatomic) PhotoDataController *dataController;
 
-- (void)setTableSource:(NSArray *)photos;
+
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
+
+- (void)setTableSource:(NSArray *)photos;
 - (IBAction)handleFullScreenButton:(UIButton *)sender;
 - (IBAction)handleWebViewButton:(UIButton *)sender;
 

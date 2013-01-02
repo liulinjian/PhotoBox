@@ -8,6 +8,7 @@
 
 #import "ParseFeedOperation.h"
 #import "PhotoObject.h"
+#import "PhotoSizesObject.h"
 
 static const const NSUInteger kMaximumNumberOfPhotosToParse = 50;
 
@@ -68,9 +69,7 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
 **/
 
 - (void)main
-{
-	// NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
+{	
 	self.workingArray = [NSMutableArray array];
     self.workingPropertyString = [NSMutableString string];
     
@@ -84,34 +83,11 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
         self.completionHandler(self.workingArray);
     }
     
-    /**
-     if ([self.workingArray count] > 0) {
-        [self performSelectorOnMainThread:@selector(addPhotosToList:)
-                               withObject:self.workingArray
-                            waitUntilDone:NO];
-    }
-     **/
-    
     self.workingArray = nil;
     self.workingPropertyString = nil;
     self.dataToParse = nil;
-    
-    // [[parser release];
-	// [pool release];
-}
 
-/**
-- (void)dealloc {
-    [photoData release];
-    
-    [currentPhotoObject release];
-    [currentParsedCharacterData release];
-    [currentParseBatch release];
-    [dateFormatter release];
-    
-    [super dealloc];
 }
-**/
 
 #pragma mark -
 #pragma mark NSXMLParser delegate methods
@@ -120,16 +96,10 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
                                      namespaceURI:(NSString *)namespaceURI
                                      qualifiedName:(NSString *)qName
                                      attributes:(NSDictionary *)attributeDict {
-    // Limit # Photos to Parse
-    /**
-     if (parsedPhotosCounter >= kMaximumNumberOfPhotosToParse) {
-        // flag didAbortParsing
-        didAbortParsing = YES;
-        [parser abortParsing];
-    }
-     **/
+    
     if ([elementName isEqualToString:kPhotoElementName]) {
         self.workingEntry = [[PhotoObject alloc] init];
+        storingCharacterData = YES;
         
         NSString *photoIDAttribute = [attributeDict valueForKey:kPhotoIDAttributeName];
         self.workingEntry.photoID = photoIDAttribute;
@@ -143,9 +113,18 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
         NSString *userAttribute = [attributeDict valueForKey:kUserAttributeName];
         self.workingEntry.user = userAttribute;
         
+        NSString *photo_thumb = [[NSString alloc ]initWithFormat:@"%@_t",photoIDAttribute];
+        self.workingEntry.thumbnail = [self photoURL:photo_thumb userID:userIDAttribute];
+        
+        NSString *photo_small = [[NSString alloc ]initWithFormat:@"%@_s",photoIDAttribute];
+        self.workingEntry.small = [self photoURL:photo_small userID:userIDAttribute];
+        
+        NSString *photo_medium = [[NSString alloc ]initWithFormat:@"%@_m",photoIDAttribute];
+        self.workingEntry.medium = [self photoURL:photo_medium userID:userIDAttribute];
+        
+        self.workingEntry.original = [self photoURL:photoIDAttribute userID:userIDAttribute];
         // [photo release];
         
-        storingCharacterData = YES;
     }
 }
 
@@ -200,6 +179,23 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
                                                         object:self
                                                       userInfo:[NSDictionary dictionaryWithObject:photos
                                                                                            forKey:kPhotoResultsKey]];
-}   
+}
+
+
+
+
+- (NSString *) photoURL:(NSString *)photoID userID:(NSString *)userID {
+    
+    NSError *error = NULL;
+    NSString *tempPhotoURL = @"http://work.dc.akqa.com/recruiting/photos/<userID>/<photoID>.jpg";
+    
+    NSRegularExpression *regex1 = [NSRegularExpression regularExpressionWithPattern:@"\\<userID>" options:NSRegularExpressionCaseInsensitive error:&error];
+    tempPhotoURL = [regex1 stringByReplacingMatchesInString:tempPhotoURL options:0 range:NSMakeRange(0, [tempPhotoURL length]) withTemplate:userID];
+    
+    NSRegularExpression *regex2 = [NSRegularExpression regularExpressionWithPattern:@"\\<photoID>" options:NSRegularExpressionCaseInsensitive error:&error];
+    tempPhotoURL = [regex2 stringByReplacingMatchesInString:tempPhotoURL options:0 range:NSMakeRange(0, [tempPhotoURL length]) withTemplate:photoID];
+    
+    return tempPhotoURL;
+}
 
 @end

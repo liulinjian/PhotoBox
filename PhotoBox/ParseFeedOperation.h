@@ -1,5 +1,5 @@
 //
-//  ParseSizesOperation.h
+//  ParseFeedOperation.h
 //  PhotoBox
 //
 //  Created by Kristen Novak on 12/31/12.
@@ -9,23 +9,23 @@
 typedef void (^ArrayBlock)(NSArray *);
 typedef void (^ErrorBlock)(NSError *);
 
-extern NSString *kAddPhotoSizesNotif;
-extern NSString *kPhotoSizesResultsKey;
+extern NSString *kAddPhotosNotif;
+extern NSString *kPhotoResultsKey;
 
-extern NSString *kPhotoSizesErrorNotif;
-extern NSString *kPhotoSizesMsgErrorKey;
+extern NSString *kPhotosErrorNotif;
+extern NSString *kPhotosMsgErrorKey;
 
 #import <Foundation/Foundation.h>
 
-@class PhotoSizesObject;
+@class PhotoObject;
 
-@interface ParseSizesOperation : NSOperation {
+@interface ParseFeedOperation : NSOperation {
     ArrayBlock      completionHandler;
     ErrorBlock      errorHandler;
     
     NSData          *dataToParse;
     NSMutableArray  *workingArray;
-    PhotoSizesObject     *workingEntry;
+    PhotoObject     *workingEntry;
     NSMutableString *workingPropertyString;
     NSArray         *elementsToParse;
     

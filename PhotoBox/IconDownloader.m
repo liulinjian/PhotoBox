@@ -8,12 +8,13 @@
 
 #import "IconDownloader.h"
 #import "PhotoObject.h"
+#import "PhotoSizesObject.h"
+#import "PhotoBoxListViewController.h"
 
 @implementation IconDownloader
 
 @synthesize photoObject;
 @synthesize indexPathInTableView;
-@synthesize mydelegate;
 @synthesize activeDownload;
 @synthesize imageConnection;
 
@@ -36,11 +37,12 @@
 
 - (void)startDownload
 {
+    NSLog(@"IconDownloader: startDownload, %@", photoObject.photoID);
     self.activeDownload = [NSMutableData data];
     // alloc+init and start an NSURLConnection; release on completion/failure
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:photoObject.thumb]] delegate:self];
+                              [NSURL URLWithString:photoObject.thumbnail]] delegate:self];
     self.imageConnection = conn;
     // [conn release];
 }
@@ -58,32 +60,28 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    NSLog(@"IconDownloader: didReceiveData");
     [self.activeDownload appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	// Clear the activeDownload property to allow later attempts
+    NSLog(@"IconDownloader: didFailWithError");
     self.activeDownload = nil;
-    
-    // Release the connection now that it's finished
     self.imageConnection = nil;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    self.photoObject.thumbImage = image;
+    NSLog(@"IconDownloader: connectionDidFinishLoading, %@, %@", self.indexPathInTableView, image);
     
+    self.photoObject.thumbImage = image;
     self.activeDownload = nil;
     // [image release];
-    
-    // Release the connection now that it's finished
     self.imageConnection = nil;
     
-    // call our delegate and tell it that our icon is ready for display
     [delegate appImageDidLoad:self.indexPathInTableView];
 }
 

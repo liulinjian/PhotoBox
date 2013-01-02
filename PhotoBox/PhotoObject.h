@@ -17,7 +17,10 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *user;
 
-@property (nonatomic, copy) PhotoSizesObject *sizes;
+@property (nonatomic, copy) NSString *thumbnail;
+@property (nonatomic, copy) NSString *small;
+@property (nonatomic, copy) NSString *medium;
+@property (nonatomic, copy) NSString *original;
 
 @property (nonatomic, copy) UIImage *thumbImage;
 @property (nonatomic, copy) UIImage *photoImage;
