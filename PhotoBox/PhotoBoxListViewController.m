@@ -31,12 +31,6 @@
 @synthesize entries;
 @synthesize imageDownloadsInProgress;
 
--(void)viewWillAppear:(BOOL)animated{
-    CAGradientLayer *bgLayer = [BackgroundLayer bgGradient];
-    bgLayer.frame = self.tableView.bounds;
-    [self.view.layer insertSublayer:bgLayer atIndex:0];
-}
-
 - (void) viewDidLoad {
     [super viewDidLoad];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
