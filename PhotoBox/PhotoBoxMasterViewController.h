@@ -13,12 +13,8 @@
 
 @interface PhotoBoxMasterViewController : UIViewController {
     NSURLConnection *photoFeedConnection;
-    NSURLConnection *photoSizesConnection;
     NSOperationQueue *parseQueue;
     NSMutableData *photosData;
-    NSMutableData *sizesData;
-    PhotoObject *currPhoto;
-    NSUInteger *currPhotoIndex;
 }
 
 @property (strong, nonatomic) PhotoDataController *dataController;

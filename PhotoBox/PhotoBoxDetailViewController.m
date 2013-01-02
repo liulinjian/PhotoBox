@@ -12,6 +12,7 @@
 @interface PhotoBoxDetailViewController ()
 - (void)configureView;
 - (NSString *) photoURL;
+- (IBAction)ReturnToList:(UIButton *)sender;
 @end
 
 @implementation PhotoBoxDetailViewController
@@ -19,6 +20,11 @@
 @synthesize activeDownload;
 @synthesize imageConnection;
 @synthesize photoView;
+@synthesize button;
+
+- (IBAction)ReturnToList:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - Managing the detail item
 
@@ -45,6 +51,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = TRUE;
+    self.navigationController.toolbarHidden = TRUE;
 	// Do any additional setup after loading the view, typically from a nib.
     // [self configureView];
 }

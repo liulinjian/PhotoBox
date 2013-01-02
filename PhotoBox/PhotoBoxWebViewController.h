@@ -10,9 +10,9 @@
 
 @class PhotoObject;
 
-@interface PhotoBoxWebViewController : UIViewController
+@interface PhotoBoxWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) PhotoObject *photo;
-@property (strong, nonatomic) IBOutlet UIWebView *webview;
+@property (nonatomic, retain) IBOutlet UIWebView *webview;
 
 @end

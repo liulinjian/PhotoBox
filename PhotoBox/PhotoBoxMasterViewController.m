@@ -22,12 +22,8 @@
 @interface PhotoBoxMasterViewController ()
 
 @property (nonatomic, retain) NSURLConnection *photoFeedConnection;
-@property (nonatomic, retain) NSURLConnection *photoSizesConnection;
 @property (nonatomic, retain) NSOperationQueue *parseQueue;
 @property (nonatomic, retain) NSMutableData *photosData;
-@property (nonatomic, retain) NSMutableData *sizesData;
-@property (nonatomic, retain) PhotoObject *currPhoto;
-@property (nonatomic) NSUInteger *currPhotoIndex;
 
 - (IBAction)handleGetPhotos:(id)sender;
 
@@ -35,14 +31,21 @@
 
 @implementation PhotoBoxMasterViewController
 
-@synthesize photoFeedConnection,photoSizesConnection, parseQueue, photosData, sizesData, currPhoto, currPhotoIndex;
+@synthesize photoFeedConnection;
+@synthesize parseQueue;
+@synthesize photosData;
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationController.navigationBarHidden = TRUE;
+    self.navigationController.toolbarHidden = TRUE;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.dataController = [[PhotoDataController alloc] init];
-        // Custom initialization
     }
     return self;
 }
@@ -56,7 +59,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -96,40 +98,6 @@
     [self handleLoadComplete];
 }
 
-/**
--(void)loadImageSizes:(NSUInteger *)photoIndex {
-    NSLog(@"loadImageSizes");
-    self.currPhotoIndex = photoIndex;
-    self.currPhoto = [self.dataController getPhotoAtIndex:*photoIndex];
-    
-    // parse getSizes URL
-    static NSString *getSizesURL = @"http://work.dc.akqa.com/recruiting/services/getSizes.php?id=<photoID>";
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\<photoID>" options:NSRegularExpressionCaseInsensitive error:&error];
-    getSizesURL = [regex stringByReplacingMatchesInString:getSizesURL options:0 range:NSMakeRange(0, [getSizesURL length]) withTemplate:self.currPhoto.photoID];
-
-    // set up request and connection for getSizes request
-    NSURLRequest *photoSizesURLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:getSizesURL]];
-    self.photoSizesConnection = [[NSURLConnection alloc] initWithRequest:photoSizesURLRequest delegate:self];
-    
-    NSAssert(self.photoSizesConnection != nil, @"Failure to create URL connection.");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    parseQueue = [NSOperationQueue new];
-}
-
--(void)handleSizesLoadComplete:(NSArray *)sizesArr {
-    NSLog(@"handleSizesLoadComplete");
-    //self.currPhoto.sizes = [sizesArray objectAtIndex:0];
-    //self.currPhotoIndex ++;
-    //NSUInteger currPhotoNum = *(self.currPhotoIndex);
-    //NSUInteger numPhotos = self.dataController.numberPhotos;
-    //if (currPhotoNum < numPhotos) {
-    //    [self loadImageSizes:&currPhotoNum];
-    //} else {
-        [self handleLoadComplete];
-    //}
-}
- */
 -(void)handleLoadComplete {
     NSLog(@"handleLoadComplete");
     [self performSegueWithIdentifier:@"viewPhotoList" sender:self];
@@ -155,9 +123,7 @@
 {
     if (connection == self.photoFeedConnection) {
         self.photosData = [NSMutableData data];
-    } else if (connection == self.photoSizesConnection) {
-        self.sizesData = [NSMutableData data];
-    }
+    } 
     
 }
 
@@ -165,8 +131,6 @@
 {
     if (connection == self.photoFeedConnection) {
         [photosData appendData:data];
-    } else if (connection == self.photoSizesConnection) {
-        [sizesData appendData:data];
     }
 }
 
@@ -190,9 +154,7 @@
     
     if (connection == self.photoFeedConnection) {
         self.photoFeedConnection = nil;
-    } else if (connection == self.photoSizesConnection) {
-        self.photoSizesConnection = nil;
-    }
+    } 
     
 }
 
@@ -227,28 +189,6 @@
         self.photosData = nil;
         
     }
-    /*else if (connection == self.photoSizesConnection) {
-        self.photoSizesConnection = nil;
-        ParseSizesOperation *parser2 = [[ParseSizesOperation alloc] initWithData:sizesData completionHandler:^(NSArray *sizesArray) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self handleSizesLoadComplete:sizesArray];
-                });
-            self.parseQueue = nil;
-        
-        }];
-        
-        parser2.errorHandler = ^(NSError *parseError) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self handleError:parseError];
-                
-            });
-        };
-        
-        [parseQueue addOperation:parser2];
-        // [parser2 release];
-        self.sizesData = nil;
-    }*/
 }
 
 @end

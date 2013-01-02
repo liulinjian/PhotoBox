@@ -8,43 +8,29 @@
 
 #import "IconDownloader.h"
 #import "PhotoObject.h"
-#import "PhotoSizesObject.h"
 #import "PhotoBoxListViewController.h"
+
+@interface IconDownloader ()
+
+@end
 
 @implementation IconDownloader
 
 @synthesize photoObject;
 @synthesize indexPathInTableView;
+
+@synthesize delegate;
 @synthesize activeDownload;
 @synthesize imageConnection;
 
 #pragma mark
 
-/**
-- (void)dealloc
-{
-    [photoObject release];
-    [indexPathInTableView release];
-    
-    [activeDownload release];
-    
-    [imageConnection cancel];
-    [imageConnection release];
-    
-    [super dealloc];
-}
-**/
-
 - (void)startDownload
 {
-    NSLog(@"IconDownloader: startDownload, %@", photoObject.photoID);
-    self.activeDownload = [NSMutableData data];
-    // alloc+init and start an NSURLConnection; release on completion/failure
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
-                             [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:photoObject.thumbnail]] delegate:self];
-    self.imageConnection = conn;
-    // [conn release];
+    if (photoObject.thumbnail)
+    {
+        [self loadImage];
+    }
 }
 
 - (void)cancelDownload
@@ -54,35 +40,87 @@
     self.activeDownload = nil;
 }
 
+-(void)loadImage {
+    self.activeDownload = [NSMutableData data];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+                             [NSURLRequest requestWithURL:
+                              [NSURL URLWithString:photoObject.thumbnail]] delegate:self];
+    self.imageConnection = conn;
+}
 
 #pragma mark -
-#pragma mark Download support (NSURLConnectionDelegate)
+#pragma mark NSURLConnection delegate methods
+
+- (void)handleError:(NSError *)error
+{
+    NSString *errorMessage = [error localizedDescription];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot load data"
+														message:errorMessage
+													   delegate:nil
+											  cancelButtonTitle:@"OK"
+											  otherButtonTitles:nil];
+    [alertView show];
+    // [alertView release];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"IconDownloader: didReceiveData");
-    [self.activeDownload appendData:data];
+    if (connection == self.imageConnection)
+    {
+        NSLog(@"IconDownloader: didReceiveData");
+        [self.activeDownload appendData:data];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"IconDownloader: didFailWithError");
-    self.activeDownload = nil;
-    self.imageConnection = nil;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    if ([error code] == kCFURLErrorNotConnectedToInternet)
+    {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"No Connection Error"
+                                                             forKey: NSLocalizedDescriptionKey];
+        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
+														 code:kCFURLErrorNotConnectedToInternet
+                                                     userInfo:userInfo];
+        [self handleError:noConnectionError];
+    }
+    else
+    {
+        [self handleError:error];
+    }
+    
+    if (connection == self.imageConnection)
+    {
+        NSLog(@"IconDownloader: didFailWithError");
+        self.activeDownload = nil;
+        self.imageConnection = nil;
+    }
+    
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
-    NSLog(@"IconDownloader: connectionDidFinishLoading, %@, %@", self.indexPathInTableView, image);
-    
-    self.photoObject.thumbImage = image;
-    self.activeDownload = nil;
-    // [image release];
-    self.imageConnection = nil;
-    
-    [delegate appImageDidLoad:self.indexPathInTableView];
+    if (connection == self.imageConnection) {
+        UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
+        
+        NSLog(@"IconDownloader: connectionDidFinishLoading, %@, %@", self.indexPathInTableView, image);
+        
+        self.photoObject.thumbImage = image;
+        self.activeDownload = nil;
+        // [image release];
+        self.imageConnection = nil;
+        
+        [delegate appImageDidLoad:self.indexPathInTableView];
+    }
 }
+
 
 @end

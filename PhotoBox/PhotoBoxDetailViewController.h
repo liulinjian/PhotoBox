@@ -16,6 +16,7 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *photoView;
+@property (strong, nonatomic) IBOutlet UIButton *button;
 
 @property (strong, nonatomic) PhotoObject *photo;
 
@@ -24,5 +25,5 @@
 
 - (void)startDownload;
 - (void)cancelDownload;
-
+- (IBAction)ReturnToList:(UIButton *)sender;
 @end

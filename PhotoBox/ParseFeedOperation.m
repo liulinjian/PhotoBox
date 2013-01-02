@@ -123,6 +123,7 @@ NSString *kPhotosMsgErrorKey = @"PhotosMsgErrorKey";
         self.workingEntry.medium = [self photoURL:photo_medium userID:userIDAttribute];
         
         self.workingEntry.original = [self photoURL:photoIDAttribute userID:userIDAttribute];
+        
         // [photo release];
         
     }

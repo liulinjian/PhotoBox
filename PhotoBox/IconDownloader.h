@@ -14,6 +14,7 @@
 @protocol IconDownloaderDelegate;
 
 @interface IconDownloader : NSObject {
+    
     PhotoObject *photoObject;
     NSIndexPath *indexPathInTableView;
     id <IconDownloaderDelegate> delegate;
@@ -24,7 +25,7 @@
 
 @property (nonatomic, retain) PhotoObject *photoObject;
 @property (nonatomic, retain) NSIndexPath *indexPathInTableView;
-@property (nonatomic, assign) id <IconDownloaderDelegate> delegate;
+@property (nonatomic, retain) id <IconDownloaderDelegate> delegate;
 
 @property (nonatomic, retain) NSMutableData *activeDownload;
 @property (nonatomic, retain) NSURLConnection *imageConnection;
@@ -34,6 +35,6 @@
 
 @end
 
-@protocol IconDownloaderDelegate
+@protocol IconDownloaderDelegate <NSObject>
 - (void)appImageDidLoad:(NSIndexPath *)indexPath;
 @end

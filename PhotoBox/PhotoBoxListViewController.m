@@ -12,6 +12,9 @@
 
 #import "PhotoDataController.h"
 #import "PhotoObject.h"
+
+#import "IconDownloader.h"
+
 #import "BackgroundLayer.h"
 
 @interface PhotoBoxListViewController ()
@@ -28,13 +31,19 @@
 
 @implementation PhotoBoxListViewController
 
-@synthesize entries;
+@synthesize xmlDownloadsInProgress;
 @synthesize imageDownloadsInProgress;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = FALSE;
+    self.navigationController.toolbarHidden = TRUE;
+    self.navigationItem.hidesBackButton = YES;
+    
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.tableView reloadData];
+    [self loadImagesForOnscreenRows];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,16 +56,18 @@
 }
 
 - (IBAction)handleFullScreenButton:(UIButton *)sender {
+    NSLog(@"handleFullScreenButton");
     self.currRow = (NSInteger *)sender.tag;
 }
 
 - (IBAction)handleWebViewButton:(UIButton *)sender {
+    NSLog(@"handleWebViewButton");
     self.currRow = (NSInteger *)sender.tag;
 }
 
 - (void)setTableSource:(NSArray *)photos {
-    //NSLog(@"%d",self.dataController.numberPhotos);
     [self.tableView reloadData];
+    [self loadImagesForOnscreenRows];
 }
 
 #pragma mark - Table View
@@ -78,8 +89,6 @@
     PhotoBoxCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        NSLog(@"Cell created!");
-        // cell = [[PhotoBoxCustomCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:CellIdentifier]; //autorelease
         
         NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"PhotoBoxCustomCell" owner:nil options:nil];
         
@@ -93,7 +102,9 @@
         
     }
     
-    NSLog(@"cell creation: %d",indexPath.row);
+    cell.background.layer.cornerRadius = 7;
+    cell.background.layer.masksToBounds = YES;
+    
     PhotoObject *currPhoto = [self.dataController getPhotoAtIndex:indexPath.row];
     [[cell titleLabel] setText:currPhoto.title];
     [[cell userLabel] setText:currPhoto.user];
@@ -113,6 +124,8 @@
         cell.imageView.image = currPhoto.thumbImage;
     }
     
+    [self loadImagesForOnscreenRows];
+    
     return cell;
 }
 
@@ -126,7 +139,6 @@
 {
     NSUInteger rowForAccess= (NSUInteger)self.currRow;
     PhotoObject *tempPhoto = [self.dataController getPhotoAtIndex:(NSUInteger)rowForAccess];
-    // NSLog(@"ListVC prepareForSeque, %@",tempPhoto.photoID);
     
     if ([[segue identifier] isEqualToString:@"openFullScreen"]) {
         PhotoBoxDetailViewController *detailVC = [segue destinationViewController];
@@ -139,29 +151,27 @@
     }
 }
 
-
-
 #pragma mark -
-#pragma mark Table cell image support
+#pragma mark Image Loading/Support
 
 - (void)startIconDownload:(PhotoObject *)photo forIndexPath:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
-    if (iconDownloader == nil)
-    {
-        NSLog(@"ListView: startIconDownload with NEW iconDownloader");
-        NSLog(@"ListView: startIconDownload: %@, %@", indexPath, photo.thumbnail);
-        iconDownloader = [[IconDownloader alloc] init];
-        iconDownloader.photoObject = photo;
-        iconDownloader.indexPathInTableView = indexPath;
-        iconDownloader.delegate = self;
-        [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
-        [iconDownloader startDownload];
-        // [iconDownloader release];
-    } 
+        IconDownloader *iconDownloader = [imageDownloadsInProgress objectForKey:indexPath];
+        if (iconDownloader == nil)
+        {
+            NSLog(@"ListView: startIconDownload: %@, %@", indexPath, photo.thumbnail);
+            iconDownloader = [IconDownloader alloc];
+            iconDownloader.photoObject = photo;
+            iconDownloader.indexPathInTableView = indexPath;
+            iconDownloader.delegate = self;
+            [imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+            [iconDownloader startDownload];
+            // [iconDownloader release];
+        
+    }
 }
 
-// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+   
 - (void)loadImagesForOnscreenRows
 {
     NSLog(@"ListView: loadImagesForOnscreenRows");
@@ -172,6 +182,9 @@
         if (!photo.thumbImage)
         {
             [self startIconDownload:photo forIndexPath:indexPath];
+        } else {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.imageView.image = photo.thumbImage;
         }
     }
     
@@ -188,14 +201,11 @@
         cell.imageView.image = iconDownloader.photoObject.thumbImage;
     }
     [imageDownloadsInProgress removeObjectForKey:indexPath];
+    
+    [self loadImagesForOnscreenRows];
 
 }
 
-
-#pragma mark -
-#pragma mark Deferred image loading (UIScrollViewDelegate)
-
-// Load images for all onscreen rows when scrolling is finished
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     if (!decelerate)
@@ -208,6 +218,5 @@
 {
     [self loadImagesForOnscreenRows];
 }
-
 
 @end
